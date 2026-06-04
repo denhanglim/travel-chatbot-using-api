@@ -5,13 +5,22 @@ Demonstrates:
 - System prompt to define assistant persona
 - Persistent conversation history for multi-turn memory
 - Iterating over user queries and accumulating context
+
+Supports OpenAI (default) or a local model via Ollama.
+Set USE_LOCAL=true in your .env to run locally.
 """
 
 import os
 from openai import OpenAI
 
-model = "gpt-4o-mini"
-client = OpenAI()
+USE_LOCAL = os.getenv("USE_LOCAL", "false").lower() == "true"
+
+if USE_LOCAL:
+    client = OpenAI(base_url="http://localhost:11434/v1", api_key="ollama")
+    model = os.getenv("OLLAMA_MODEL", "llama3")
+else:
+    client = OpenAI()
+    model = "gpt-4o-mini"
 
 SYSTEM_PROMPT = "You are a virtual Parisian expert, delivering valuable insights into the city's iconic landmarks. You must respond by providing an engaging and immersive travel planning experience for the clientele of Peterman Reality Tours"
 

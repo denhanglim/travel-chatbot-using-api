@@ -43,7 +43,31 @@ cp .env.example .env
 python Travel_Chatbot_Using_API.py
 ```
 
+## Running locally with Ollama (no API key needed)
+
+You can swap OpenAI for any local model from [Hugging Face](https://huggingface.co/models) served via [Ollama](https://ollama.com).
+
+**1. Install Ollama** — [ollama.com/download](https://ollama.com/download)
+
+**2. Pull a model**
+```bash
+ollama pull llama3
+```
+
+**3. Set env vars in your `.env`**
+```
+USE_LOCAL=true
+OLLAMA_MODEL=llama3
+```
+
+**4. Run** — same command, no API key required
+```bash
+python Travel_Chatbot_Using_API.py
+```
+
+Ollama exposes an OpenAI-compatible endpoint at `http://localhost:11434/v1`, so the same code works with zero changes.
+
 ## Requirements
 
 - Python 3.8+
-- OpenAI API key ([get one here](https://platform.openai.com/api-keys))
+- OpenAI API key ([get one here](https://platform.openai.com/api-keys)) — or Ollama for local models
